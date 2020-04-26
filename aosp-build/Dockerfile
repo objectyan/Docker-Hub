@@ -4,6 +4,9 @@ FROM ubuntu:latest
 # 作者信息
 LABEL author=ObjectYan site=https://objectyan.me
 
+# 设置默认的shell为bash
+RUN dpkg-reconfigure -p critical dash
+
 # 设置映射文件
 VOLUME [ "/AOSP" ]
 
@@ -15,11 +18,12 @@ RUN perl -p -i -e "s/http:\/\/security.ubuntu.com/http:\/\/mirrors.aliyun.com/g"
 RUN perl -p -i -e "s/http:\/\/archive.ubuntu.com/http:\/\/mirrors.aliyun.com/g" /etc/apt/sources.list
 
 # 更新系统
-RUN apt update
+RUN apt update --assume-yes
 
 # 安装repo
 RUN apt install --assume-yes repo
 RUN echo "export REPO_URL='https://github.com/GerritCodeReview/git-repo.git'" >> ~/.bashrc
+RUN source ~/.bashrc
 
 # 安装JDK
 RUN apt install --assume-yes openjdk-8-jdk && update-alternatives --config java && update-alternatives --config javac
@@ -28,7 +32,7 @@ RUN apt install --assume-yes openjdk-8-jdk && update-alternatives --config java 
 RUN apt install --assume-yes git-core gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip
 
 # 导入GPG
-ADD AOSP_PUB.asc /tmp/AOSP_PUB.asc
+ADD ./AOSP_PUB.asc /tmp/AOSP_PUB.asc
 RUN gpg --import /tmp/AOSP_PUB.asc
 RUN rm -rf /tmp/AOSP_PUB.asc
 
