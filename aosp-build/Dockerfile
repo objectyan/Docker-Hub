@@ -1,5 +1,5 @@
 # 设置系统环境
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 # 作者信息
 LABEL author=ObjectYan site=https://objectyan.me
@@ -18,7 +18,7 @@ RUN perl -p -i -e "s/http:\/\/security.ubuntu.com/http:\/\/mirrors.aliyun.com/g"
 RUN perl -p -i -e "s/http:\/\/archive.ubuntu.com/http:\/\/mirrors.aliyun.com/g" /etc/apt/sources.list
 
 # 更新系统
-RUN apt update --assume-yes
+RUN apt update 
 
 # 安装repo
 RUN apt install --assume-yes repo
