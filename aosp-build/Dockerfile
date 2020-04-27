@@ -39,6 +39,7 @@ RUN rm -rf /tmp/AOSP_PUB.asc
 RUN git config --global color.ui "auto"
 RUN git config --global user.email "objecttozero@sina.com"
 RUN git config --global user.name "ObjectYan"
+RUN git config --global http.postBuffer 2000000000
 
 # 设置命令行
 CMD [ "/bin/bash" ]
