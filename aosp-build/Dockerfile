@@ -23,7 +23,6 @@ RUN apt update
 # 安装repo
 RUN apt install --assume-yes repo
 RUN echo "export REPO_URL='https://github.com/GerritCodeReview/git-repo.git'" >> ~/.bashrc
-RUN source ~/.bashrc
 
 # 安装JDK
 RUN apt install --assume-yes openjdk-8-jdk && update-alternatives --config java && update-alternatives --config javac
@@ -40,9 +39,6 @@ RUN rm -rf /tmp/AOSP_PUB.asc
 RUN git config --global color.ui "auto"
 RUN git config --global user.email "objecttozero@sina.com"
 RUN git config --global user.name "ObjectYan"
-
-# 下载AOSP代码
-RUN repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-10.0.0_r30
 
 # 设置命令行
 CMD [ "/bin/bash" ]
