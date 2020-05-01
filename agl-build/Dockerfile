@@ -33,7 +33,8 @@ RUN chmod a+rx ~/.bin/repo
 RUN echo "export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'" >> ~/.bashrc
 
 # 安装支持环境
-RUN yum install -y python3 git git-core gawk make wget tar bzip2 gzip unzip perl patch diffutils diffstat git cpp gcc gcc-c++ glibc-devel chrpath socat SDL-devel xterm curl
+RUN yum install -y python36 git-core gawk make wget tar bzip2 gzip unzip perl patch diffutils diffstat git cpp gcc gcc-c++ glibc-devel chrpath socat SDL-devel xterm curl
+RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # 设置映射目录、工作目录
 VOLUME [ "/AGL" ]
