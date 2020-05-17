@@ -13,6 +13,10 @@ VOLUME [ "/AOSP" ]
 # 设置工作目录
 WORKDIR /AOSP
 
+# 设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+
 # 修改 source 地址
 RUN perl -p -i -e "s/http:\/\/security.ubuntu.com/http:\/\/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 RUN perl -p -i -e "s/http:\/\/archive.ubuntu.com/http:\/\/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
@@ -42,7 +46,6 @@ RUN rm -rf /tmp/AOSP_PUB.asc
 RUN git config --global color.ui "auto"
 RUN git config --global user.email "objecttozero@sina.com"
 RUN git config --global user.name "ObjectYan"
-RUN git config --global http.postBuffer 2000000000
 
 # 设置命令行
 CMD [ "/bin/bash" ]

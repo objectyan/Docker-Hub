@@ -4,6 +4,10 @@ FROM ubuntu:18.04
 # 作者信息
 LABEL author=ObjectYan site=https://objectyan.me
 
+# 设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo 'Asia/Shanghai' >/etc/timezone
+
 # 修改 source 地址
 RUN perl -p -i -e "s/http:\/\/security.ubuntu.com/http:\/\/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
 RUN perl -p -i -e "s/http:\/\/archive.ubuntu.com/http:\/\/mirrors.tuna.tsinghua.edu.cn/g" /etc/apt/sources.list
@@ -23,7 +27,6 @@ RUN echo "export REPO_URL='https://mirrors.tuna.tsinghua.edu.cn/git/git-repo'" >
 RUN git config --global color.ui "auto"
 RUN git config --global user.email "objecttozero@sina.com"
 RUN git config --global user.name "ObjectYan"
-RUN git config --global http.postBuffer 2000000000
 
 # 设置映射目录、工作目录
 VOLUME [ "/AGL" ]
